@@ -158,7 +158,9 @@ public class AdminLogin extends javax.swing.JFrame {
    Connection con;
    PreparedStatement ps;
         try {
-            con=DriverManager.getConnection("jdbc:mysql://localhost/qb", "root", "password");
+            Class.forName("com.mysql.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
+                            + "user=root&password=password");
             ps=con.prepareStatement("SELECT `username`,`password` FROM `admin` WHERE `username`=? AND `password`=?;");
             ps.setString(1,at1.getText());
             ps.setString(2, String.valueOf(at2.getPassword()));
@@ -173,6 +175,8 @@ public class AdminLogin extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null, "Invalid Username or Password");
             }
         } catch (SQLException ex) {
+            Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_abtnActionPerformed
