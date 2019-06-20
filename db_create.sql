@@ -22,6 +22,7 @@ CREATE TABLE `grocery_schema`.`stock` (
     `pname` VARCHAR(40) NULL,
     `available` INT NULL,
     `mrp` INT NULL,
+    `total` INT NULL,
     PRIMARY KEY (`id`));
 
 
