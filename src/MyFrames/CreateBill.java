@@ -333,7 +333,8 @@ public class CreateBill extends javax.swing.JInternalFrame {
    PreparedStatement pst;
    ResultSet rs1;
      try{
-         con=DriverManager.getConnection("jdbc:mysql://localhost/qb", "root", "password");
+         con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
+                            + "user=root&password=password");
             pst=con.prepareStatement(sql1);  
             pst.setString(1, tmp);
             rs1=pst.executeQuery();

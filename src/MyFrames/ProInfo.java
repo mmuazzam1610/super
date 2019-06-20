@@ -27,7 +27,8 @@ public Connection getConnection()
         Connection con;
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/qb","root","password");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
+                            + "user=root&password=password");
             return con;
         } catch(Exception e)
         {

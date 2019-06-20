@@ -148,7 +148,8 @@ public class CashLogin extends javax.swing.JFrame {
         Connection con;
    PreparedStatement ps;
         try {
-            con=DriverManager.getConnection("jdbc:mysql://localhost/qb", "root", "password");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
+                            + "user=root&password=password");
             ps=con.prepareStatement("SELECT `email`,`password` FROM `cash` WHERE `email`=? AND `password`=?;");
             ps.setString(1,jTextField1.getText());
             ps.setString(2, String.valueOf(jPasswordField1.getPassword()));
