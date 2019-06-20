@@ -13,7 +13,8 @@ CREATE TABLE `grocery_schema`.`cash` (
 	`address` VARCHAR(40) NULL DEFAULT NULL,
 	`email` VARCHAR(20) NULL DEFAULT NULL,
 	`password` VARCHAR(15) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`));
+	PRIMARY KEY (`id`),
+    UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
 
 CREATE TABLE `grocery_schema`.`stock` (
