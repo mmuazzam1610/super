@@ -161,7 +161,7 @@ public class AdminLogin extends javax.swing.JFrame {
             Class.forName("com.mysql.jdbc.Driver");
             con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
                             + "user=root&password=password");
-            ps=con.prepareStatement("SELECT `username`,`password` FROM `admin` WHERE `username`=? AND `password`=?;");
+            ps=con.prepareStatement("SELECT `username`,`password` FROM `employee` WHERE `emp_type` like 'admin' AND `username`=? AND `password`=?;");
             ps.setString(1,at1.getText());
             ps.setString(2, String.valueOf(at2.getPassword()));
             ResultSet rs=ps.executeQuery();

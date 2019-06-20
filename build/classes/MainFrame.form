@@ -77,10 +77,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="0" red="0" type="rgb"/>
         </Property>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\SAMEER\Desktop\1575_-_Cashier-32.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Cashier"/>
+        <Property name="text" type="java.lang.String" value="Employee Management"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -91,7 +88,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="271" y="10" width="130" height="40"/>
+          <AbsoluteConstraints x="230" y="10" width="170" height="40"/>
         </Constraint>
       </Constraints>
     </Component>

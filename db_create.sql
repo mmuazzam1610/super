@@ -1,29 +1,39 @@
 CREATE SCHEMA `grocery_schema` ;
 
-CREATE TABLE `grocery_schema`.`admin` (
+
+CREATE TABLE `grocery_schema`.`employee` (
+	`id` INT NOT NULL AUTO_INCREMENT,
 	`username` VARCHAR(15) NOT NULL,
 	`password` VARCHAR(15) NOT NULL,
-	PRIMARY KEY (`username`));
-
-
-CREATE TABLE `grocery_schema`.`cash` (
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(15) NULL DEFAULT NULL,
-	`mno` VARCHAR(15) NULL DEFAULT NULL,
-	`address` VARCHAR(40) NULL DEFAULT NULL,
-	`email` VARCHAR(20) NULL DEFAULT NULL,
-	`password` VARCHAR(15) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`),
+    `name` VARCHAR(15) NULL,
+	`mno` VARCHAR(15) NULL,
+	`address` VARCHAR(40) NULL,
+    `salary` INT NULL,
+	`email` VARCHAR(20) NULL,
+    `emp_type` VARCHAR(20) NULL,
+    PRIMARY KEY (`id`),
     UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
 
-CREATE TABLE `grocery_schema`.`stock` (
+CREATE TABLE `grocery_schema`.`suppliers` (
+	`id` INT NOT NULL auto_increment,
+    `sname` VARCHAR(40),
+    `address` VARCHAR(40),
+    `phone` VARCHAR(40),
+    `email` VARCHAR(40),
+    PRIMARY KEY (`id`));
+
+
+CREATE TABLE `grocery_schema`.`item_stock` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-    `pname` VARCHAR(40) NULL,
+    `item_name` VARCHAR(40) NULL,
     `available` INT NULL,
+    `sup_id` INT NOT NULL,
     `mrp` INT NULL,
     `total` INT NULL,
-    PRIMARY KEY (`id`));
+    `img` BLOB,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY `fkey_sup` (`sup_id`) REFERENCES suppliers(`id`));
 
 
 CREATE TABLE `grocery_schema`.`bill` (
@@ -32,5 +42,13 @@ CREATE TABLE `grocery_schema`.`bill` (
     `amt` INT NULL,
     `pdate` DATE NULL,
     PRIMARY KEY (`bno`));
+
     
+CREATE TABLE `grocery_schema`.`transactions` (
+	`tran_id` INT NOT NULL AUTO_INCREMENT,
+    `tran_type` VARCHAR(20),
+    `amt` DOUBLE,
+    `net_balance` DOUBLE,
+    PRIMARY KEY (`tran_id`));
+
 

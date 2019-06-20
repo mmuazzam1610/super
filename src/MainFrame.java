@@ -1,5 +1,5 @@
 
-import MyFrames.AddCash;
+import MyFrames.AddEmployee;
 import MyFrames.PerPro;
 import MyFrames.PerDay;
 import MyFrames.Transaction;
@@ -74,8 +74,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         Cashview.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Cashview.setForeground(new java.awt.Color(0, 0, 102));
-        Cashview.setIcon(new javax.swing.ImageIcon("C:\\Users\\SAMEER\\Desktop\\1575_-_Cashier-32.png")); // NOI18N
-        Cashview.setText("Cashier");
+        Cashview.setText("Employee Management");
         Cashview.setBorder(null);
         Cashview.setContentAreaFilled(false);
         Cashview.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +82,7 @@ public class MainFrame extends javax.swing.JFrame {
                 CashviewActionPerformed(evt);
             }
         });
-        getContentPane().add(Cashview, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 10, 130, 40));
+        getContentPane().add(Cashview, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 170, 40));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 102));
@@ -136,7 +135,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void CashviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CashviewActionPerformed
        
         // TODO add your handling code here:
-        AddCash ac=new AddCash();
+        AddEmployee ac=new AddEmployee();
         this.desktop.add(ac);
         
         ac.setVisible(true);

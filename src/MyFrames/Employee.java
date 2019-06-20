@@ -10,29 +10,38 @@ package MyFrames;
  *
  * @author SAMEER
  */
-public class Cash {
+public class Employee {
 
     private int id;
+    private String username;
+    private String password;
     private String name;
     private String mno;
     private String address;
+    private int salary;
     private String email;
-    private String password;
+    private String emp_type;
     
-    public Cash(int id,String name,String mno,String address,String email, String password)
+    public Employee(int id, String username, String password, String name, String mno, String address, int salary, String email, String emp_type)
     {
-        this.id=id;
-        this.name=name;
-        this.mno=mno;
-        this.address=address;
-        this.email=email;
-        this.password=password;
-        
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.mno = mno;
+        this.address = address;
+        this.salary = salary;
+        this.email = email;
+        this.emp_type = emp_type;
     }
             
     public int getid()
     {
         return id;
+    }
+    public String getusername()
+    {
+        return username;
     }
     public String getname()
     {
@@ -53,5 +62,13 @@ public class Cash {
     public String getpassword()
     {
         return password;
+    }
+    public int getsalary()
+    {
+        return salary;
+    }
+    public String gettype()
+    {
+        return emp_type;
     }
 }
