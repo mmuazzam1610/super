@@ -7,4 +7,4 @@ insert into `grocery_schema`.admin (username, password)
 
 insert into `grocery_schema`.cash (name, mno, address, email, password) 
 	values 
-		('Cashier 1', '00001111', 'Dummy Address', 'dummy@email.com', 'password');
+		('Cashier 1', '00001111', 'Dummy Address', 'dummy1@email.com', 'password');

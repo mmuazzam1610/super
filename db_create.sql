@@ -18,17 +18,17 @@ CREATE TABLE `grocery_schema`.`cash` (
 
 
 CREATE TABLE `grocery_schema`.`stock` (
-	`id` INT(15) NOT NULL,
+	`id` INT NOT NULL AUTO_INCREMENT,
     `pname` VARCHAR(40) NULL,
-    `available` INT(15) NULL,
-    `mrp` INT(15) NULL,
+    `available` INT NULL,
+    `mrp` INT NULL,
     PRIMARY KEY (`id`));
 
 
 CREATE TABLE `grocery_schema`.`bill` (
-	`bno` INT(15) NOT NULL,
+	`bno` INT NOT NULL,
     `cname` VARCHAR(40) NULL,
-    `amt` INT(15) NULL,
+    `amt` INT NULL,
     `pdate` DATE NULL,
     PRIMARY KEY (`bno`));
     
