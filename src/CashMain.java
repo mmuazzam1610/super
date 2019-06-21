@@ -39,7 +39,6 @@ public class CashMain extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,7 +71,6 @@ public class CashMain extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 102));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/new-32.png"))); // NOI18N
         jButton2.setText("Create Bill");
         jButton2.setBorder(null);
         jButton2.setContentAreaFilled(false);
@@ -81,7 +79,7 @@ public class CashMain extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 110, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 17, 110, 40));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 102));
@@ -119,9 +117,6 @@ public class CashMain extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1255, 20, 70, 30));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imageedit_1_7245834402.jpg"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 170, 70));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bk.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 70));
@@ -218,7 +213,6 @@ public class CashMain extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

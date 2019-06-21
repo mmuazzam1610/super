@@ -120,7 +120,7 @@ public class Sales extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        MessageFormat header=new MessageFormat("Transaction Report");
+        MessageFormat header=new MessageFormat("Sales Report");
         MessageFormat footer=new MessageFormat("Page{0,number,integer}");
 
         try{

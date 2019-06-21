@@ -352,19 +352,7 @@ public class Transactions extends javax.swing.JInternalFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String query="INSERT INTO `transactions`(tran_id,`tran_type`,amt,net_balance,`date`) VALUES("+jTextField1.getText()+",'"+jTextField2.getText()+"',"+jTextField3.getText()+","+String.valueOf(Double.parseDouble(jTextField3.getText())+Double.parseDouble(jTextField4.getText()))+",'"+jTextField5.getText()+"');";
-    
-       Connection con;    
-       Statement st;
-       try{
-            con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
-                            + "user=root&password=password");
-           st = con.createStatement();
-           st.executeUpdate(query);
-       }
-       catch(Exception e)
-       {
-           JOptionPane.showMessageDialog(null ,e);
-       }
+        executeSQlQuery(query,"Insert");
        transactionno();
     }//GEN-LAST:event_jButton1ActionPerformed
     
