@@ -5,8 +5,11 @@
  * and open the template in the editor.
  */
 package MyFrames;
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -17,6 +20,7 @@ import javax.swing.table.TableModel;
  */
 public class UpdateStock extends javax.swing.JInternalFrame {
 
+    JFileChooser fc;
     /**
      * Creates new form AddCash
      */
@@ -24,7 +28,7 @@ public class UpdateStock extends javax.swing.JInternalFrame {
         initComponents();
         show_stock();
         this.setLocation(200,90);
-        
+        fc = new JFileChooser();
     }
 
     /**
@@ -49,7 +53,7 @@ public class UpdateStock extends javax.swing.JInternalFrame {
     {
         ArrayList<Stock>stockList=new ArrayList<Stock>();
         Connection connection= getConnection();
-        String query="SELECT * FROM `stock`;";
+        String query="SELECT * FROM `item_stock`;";
         Statement st;
         ResultSet rs;
         try{
@@ -58,7 +62,7 @@ public class UpdateStock extends javax.swing.JInternalFrame {
             Stock stock;
             while(rs.next())
             {
-                stock = new Stock(rs.getString("id"),rs.getString("pname"),rs.getInt("available"),rs.getInt("mrp"));
+                stock = new Stock(rs.getString("id"),rs.getString("item_name"),rs.getInt("available"),rs.getString("sname"),rs.getInt("mrp"),rs.getInt("total"),rs.getString("img"));
                stockList.add(stock);
             }
             
@@ -74,19 +78,21 @@ public class UpdateStock extends javax.swing.JInternalFrame {
     {
         ArrayList<Stock> list=getStockList();
         DefaultTableModel model=(DefaultTableModel)jTable2.getModel();
-        Object[] row=new Object[4];
+        Object[] row=new Object[7];
         for(int i=0;i<list.size();i++)
         {
             row[0]=list.get(i).getid();
             row[1]=list.get(i).getpname();
             row[2]=list.get(i).getavailable();
-            row[3]=list.get(i).getmrp();
+            row[3]=list.get(i).getsname();
+            row[4]=list.get(i).getmrp();
+            row[5]=list.get(i).gettotal();
+            row[6]=list.get(i).getimg();
             
             model.addRow(row);
         }
         
     }
-  
 
  
     @SuppressWarnings("unchecked")
@@ -110,6 +116,13 @@ public class UpdateStock extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel6.setText("Address");
@@ -135,7 +148,13 @@ public class UpdateStock extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel5.setText("Mrp");
 
+        jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
@@ -157,7 +176,7 @@ public class UpdateStock extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Product Id", "Product Name", "Available", "Mrp"
+                "Product ID", "Product Name", "Available", "Supplier ID", "Mrp", "Total", "Image"
             }
         ));
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,6 +200,30 @@ public class UpdateStock extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel8.setText("Supplier Name");
+
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel9.setText("Total Quantity");
+
+        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel10.setText("Image");
+
+        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField8MouseClicked(evt);
+            }
+        });
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Image");
+        jLabel11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,52 +231,62 @@ public class UpdateStock extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField4)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField5))
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                                .addComponent(jButton2)
-                                .addGap(48, 48, 48))))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(516, 516, 516))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(99, 99, 99)))
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(125, 125, 125))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(194, 194, 194)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(561, 561, 561))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
+                        .addGap(16, 16, 16)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -249,11 +302,24 @@ public class UpdateStock extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(64, 64, 64)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2))))
-                .addContainerGap(54, Short.MAX_VALUE))
+                            .addComponent(jButton2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,44 +330,70 @@ public class UpdateStock extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     String query="INSERT INTO `stock`(id,`pname`,available,mrp) VALUES("+jTextField1.getText()+",'"+jTextField2.getText()+"',"+jTextField4.getText()+","+jTextField5.getText()+");";
-    executeSQlQuery(query, "Inserted");   // TODO add your handling code here:
+        String query="INSERT INTO `item_stock`(`item_name`,available,mrp,sname,total,img) VALUES('"+jTextField2.getText()+"',"+jTextField4.getText()+","+jTextField5.getText()+","+jTextField6.getText()+","+jTextField7.getText()+","+jTextField8.getText()+");";
+        executeSQlQuery(query, "Inserted");   // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
                  
-                 String s2= jTextField3.getText();
-                 String s1=jTextField4.getText();
-                 int a=Integer.parseInt(s1);
-                 int b=Integer.parseInt(s2);
-                 int c=a+b;
+                 String s2 = jTextField3.getText();
+                 String s1 = jTextField4.getText();
+                 String s3 = jTextField7.getText();
+                 int a = Integer.parseInt(s1);
+                 int b = Integer.parseInt(s2);
+                 int d = Integer.parseInt(s3);
+                 int c = a + b;
+                 int e = a + d;
                  String result=String.valueOf(c);
                  jTextField3.setText(result);
+                 jTextField7.setText(String.valueOf(e));
                  
                                   
         String query;
-        query ="UPDATE `stock` SET `id`="+jTextField1.getText()+",`pname`='"+jTextField2.getText()+"',`available`="+jTextField3.getText()+",`mrp`="+jTextField5.getText()+" WHERE `id`="+jTextField1.getText();
-    executeSQlQuery(query,"Update");   // TODO add your handling code here:*/
+        query ="UPDATE `item_stock` SET `item_name`='"+jTextField2.getText()+"',`available`="+jTextField3.getText()+",`mrp`="+jTextField5.getText()+",`sname`='"+jTextField6.getText()+"',`total`="+jTextField7.getText()+",`img`='"+jTextField8.getText()+"' WHERE `id`="+jTextField1.getText()+";";
+        executeSQlQuery(query,"Update");   // TODO add your handling code here:*/
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-int i=jTable2.getSelectedRow();        // TODO add your handling code here:
-    TableModel model=jTable2.getModel();
-    jTextField1.setText(model.getValueAt(i, 0).toString());
-    jTextField2.setText(model.getValueAt(i, 1).toString());
-    jTextField3.setText(model.getValueAt(i, 2).toString());
-    //jTextField4.setText(model.getValueAt(i, 3).toString());
-    jTextField5.setText(model.getValueAt(i, 3).toString());
-    //jTextField6.setText(model.getValueAt(i, 5).toString());
-            // TODO add your handling code here:
+        int i=jTable2.getSelectedRow();        // TODO add your handling code here:
+        TableModel model=jTable2.getModel();
+        jTextField1.setText(model.getValueAt(i, 0).toString());
+        jTextField2.setText(model.getValueAt(i, 1).toString());
+        jTextField3.setText(model.getValueAt(i, 2).toString());
+        //jTextField4.setText(model.getValueAt(i, 3).toString());
+        jTextField5.setText(model.getValueAt(i, 4).toString());
+        jTextField6.setText(model.getValueAt(i, 3).toString());
+        jTextField7.setText(model.getValueAt(i, 5).toString());
+        jTextField8.setText(model.getValueAt(i, 6).toString());
+        // TODO add your handling code here:
+        jLabel11.setIcon(new ImageIcon(model.getValueAt(i, 6).toString()));
+        jLabel11.setText("");
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jTextField8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField8MouseClicked
+        // TODO add your handling code here:
+        int returnVal = fc.showOpenDialog(UpdateStock.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            //This is where a real application would open the file.
+            jTextField8.setText(file.getAbsolutePath().replace("\\", "/"));
+            jLabel11.setIcon(new ImageIcon(jTextField8.getText()));
+            jLabel11.setText("");
+        }
+    }//GEN-LAST:event_jTextField8MouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
   public void executeSQlQuery(String query, String message)
    {
@@ -320,6 +412,9 @@ int i=jTable2.getSelectedRow();        // TODO add your handling code here:
                jTextField3.setText("");
                jTextField4.setText("");
                jTextField5.setText("");
+               jTextField6.setText("");
+               jTextField7.setText("");
+               jTextField8.setText("");
                JOptionPane.showMessageDialog(null, "Data "+message+" Succefully");
                
            }else{
@@ -333,12 +428,16 @@ int i=jTable2.getSelectedRow();        // TODO add your handling code here:
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable2;
@@ -347,6 +446,9 @@ int i=jTable2.getSelectedRow();        // TODO add your handling code here:
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
 
     private void setLocationRelativeTo(Object object) {

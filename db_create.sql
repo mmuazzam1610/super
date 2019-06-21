@@ -16,24 +16,23 @@ CREATE TABLE `grocery_schema`.`employee` (
 
 
 CREATE TABLE `grocery_schema`.`suppliers` (
-	`id` INT NOT NULL auto_increment,
     `sname` VARCHAR(40),
     `address` VARCHAR(40),
     `phone` VARCHAR(40),
     `email` VARCHAR(40),
-    PRIMARY KEY (`id`));
+    PRIMARY KEY (`sname`));
 
 
 CREATE TABLE `grocery_schema`.`item_stock` (
 	`id` INT NOT NULL AUTO_INCREMENT,
     `item_name` VARCHAR(40) NULL,
     `available` INT NULL,
-    `sup_id` INT NOT NULL,
+    `sname` VARCHAR(40) NOT NULL,
     `mrp` INT NULL,
     `total` INT NULL,
-    `img` BLOB,
+    `img` TEXT,
     PRIMARY KEY (`id`),
-    FOREIGN KEY `fkey_sup` (`sup_id`) REFERENCES suppliers(`id`));
+    FOREIGN KEY `fkey_sup` (`sname`) REFERENCES suppliers(`sname`));
 
 
 CREATE TABLE `grocery_schema`.`bill` (
@@ -49,6 +48,12 @@ CREATE TABLE `grocery_schema`.`transactions` (
     `tran_type` VARCHAR(20),
     `amt` DOUBLE,
     `net_balance` DOUBLE,
+    `date` DATE,
     PRIMARY KEY (`tran_id`));
 
+CREATE TABLE `grocery_schema`.`thriftymembers` (
+    `cname` VARCHAR(40) NOT NULL,
+    `email` VARCHAR(40) NULL,
+    `discount` DOUBLE NOT NULL,
+    PRIMARY KEY (`cname`));
 

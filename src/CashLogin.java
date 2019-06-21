@@ -60,7 +60,7 @@ public class CashLogin extends javax.swing.JFrame {
         jLabel2.setText("Password");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Cashier Email");
+        jLabel3.setText("Cashier Username");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -89,8 +89,8 @@ public class CashLogin extends javax.swing.JFrame {
                 .addGap(82, 82, 82)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,7 +150,7 @@ public class CashLogin extends javax.swing.JFrame {
         try {
             con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
                             + "user=root&password=password");
-            ps=con.prepareStatement("SELECT `email`,`password` FROM `employee` WHERE `emp_type` like 'cashier' AND `email`=? AND `password`=?;");
+            ps=con.prepareStatement("SELECT `username`,`password` FROM `employee` WHERE `emp_type` like 'cashier' AND `username`=? AND `password`=?;");
             ps.setString(1,jTextField1.getText());
             ps.setString(2, String.valueOf(jPasswordField1.getPassword()));
             ResultSet rs=ps.executeQuery();

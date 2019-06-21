@@ -115,7 +115,6 @@ public class CreateBill extends javax.swing.JInternalFrame {
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 102));
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\SAMEER\\Desktop\\DeleteRed.png")); // NOI18N
         jButton2.setText("Remove");
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
@@ -187,6 +186,11 @@ public class CreateBill extends javax.swing.JInternalFrame {
         jLabel8.setText("Customer Name");
 
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -328,7 +332,7 @@ public class CreateBill extends javax.swing.JInternalFrame {
 
     private void jComboBox2PopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBox2PopupMenuWillBecomeInvisible
      String tmp=(String)jComboBox2.getSelectedItem();
-     String sql1="SELECT * FROM `stock` WHERE `id`=?";
+     String sql1="SELECT * FROM `item_stock` WHERE `id`=?";
      Connection con;
    PreparedStatement pst;
    ResultSet rs1;
@@ -340,7 +344,7 @@ public class CreateBill extends javax.swing.JInternalFrame {
             rs1=pst.executeQuery();
             if(rs1.next())
             {
-                String add=rs1.getString("pname");
+                String add=rs1.getString("item_name");
                 jTextField3.setText(add);
                 String add1=rs1.getString("mrp");
                 jTextField4.setText(add1);
@@ -407,18 +411,18 @@ public class CreateBill extends javax.swing.JInternalFrame {
     
                  String s2= jTextField5.getText();//quantity
                  String s1=jTextField4.getText(); //mrp
-                 //String s3=jTextField6.getText();
-                 //int d=Integer.parseInt(s3);
+                 String s3=jTextField6.getText();
+                 double d=Double.parseDouble(s3);
                  int a=Integer.parseInt(s1);
                  int b;
                   b = Integer.parseInt(s2); 
                  int c = a * b;
-                 //int e = c -((d/100)*c);
-                 String result=String.valueOf(c);
+                 double e = c -((d/100)*c);
+                 String result=String.valueOf(e);
                  model.addRow(new Object[]{jTextField5.getText(),jTextField3.getText(),jTextField4.getText(),result});
                  getsum();
                  // Update query;
-                 String sql1="UPDATE `stock` SET `available`=`available` - '"+jTextField5.getText()+"' WHERE `id`='"+String.valueOf(jComboBox2.getSelectedItem())+"'";
+                 String sql1="UPDATE `item_stock` SET `available`=`available` - '"+jTextField5.getText()+"', `total`=`total` - '"+jTextField5.getText()+"' WHERE `id`='"+String.valueOf(jComboBox2.getSelectedItem())+"'";
      Connection con;
    Statement st;
   // ResultSet rs1;
@@ -430,25 +434,25 @@ public class CreateBill extends javax.swing.JInternalFrame {
             st.executeUpdate(sql1);
             
      }
-     catch(Exception e)
+     catch(Exception ex)
      {
-         JOptionPane.showMessageDialog(null,e);
+         JOptionPane.showMessageDialog(null,ex);
      }
     }//GEN-LAST:event_jButton1ActionPerformed
       public void getsum()
       {
-          int sum=0;
+          double sum=0;
           for(int i=0; i<jTable1.getRowCount(); i++)
           {
-              sum = sum + Integer.parseInt(jTable1.getValueAt(i,3).toString());
+              sum = sum + Double.parseDouble(jTable1.getValueAt(i,3).toString());
           }
-          jTextField7.setText(Integer.toString(sum));
+          jTextField7.setText(Double.toString(sum));
       }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
             DefaultTableModel model =(DefaultTableModel) jTable1.getModel();
             model.removeRow(jTable1.getSelectedRow());
             // Update query;
-                 String sql1="UPDATE `stock` SET `available`=`available` + '"+jTextField5.getText()+"' WHERE `pname`='"+jTextField3.getText()+"'";
+                 String sql1="UPDATE `item_stock` SET `available`=`available` + '"+jTextField5.getText()+"', `total`=`total` - '"+jTextField5.getText()+"' WHERE `item_name`='"+jTextField3.getText()+"'";
      Connection con;
    Statement st;
   // ResultSet rs1;
@@ -468,15 +472,15 @@ public class CreateBill extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         billupdate();
-        MessageFormat header=new MessageFormat("User Report");
+        MessageFormat header=new MessageFormat("Bill Receipt");
         MessageFormat footer=new MessageFormat("Page{0,number,integer}");
         
         try{
-            jTable1.print(JTable.PrintMode.NORMAL, header, footer );
+            jTable1.print(JTable.PrintMode.NORMAL, header, footer);
         }
         catch(java.awt.print.PrinterException e)
         {
-            System.err.format("Cannot print %%n",e.getMessage());
+            System.err.format("Cannot print %s", e.getMessage());
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -486,6 +490,31 @@ public class CreateBill extends javax.swing.JInternalFrame {
       jTextField4.setText(model.getValueAt( jTable1.getSelectedRow(), 2).toString());
       jTextField3.setText(model.getValueAt( jTable1.getSelectedRow(), 1).toString());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        String name = jTextField2.getText();
+        String sql1="SELECT * FROM `thriftymembers` WHERE `cname`=?";
+        Connection con;
+        PreparedStatement pst;
+        ResultSet rs1;
+        try{
+            con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
+                            + "user=root&password=password");
+            pst=con.prepareStatement(sql1);  
+            pst.setString(1, name);
+            rs1=pst.executeQuery();
+            if(rs1.next())
+            {
+                String discount=rs1.getString("discount");
+                jTextField6.setText(discount);
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
     public static  String DateFormat = "yyyy-MM-dd";
     public void showdate()
     {
@@ -498,7 +527,7 @@ public class CreateBill extends javax.swing.JInternalFrame {
     private void Fillcombo()
     {
         String sql;
-        sql = "SELECT * FROM `stock`";
+        sql = "SELECT * FROM `item_stock`";
     Connection con;
    PreparedStatement ps;
    ResultSet rs;

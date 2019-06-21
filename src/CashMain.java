@@ -59,7 +59,6 @@ public class CashMain extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 102));
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\SAMEER\\Desktop\\search-32.png")); // NOI18N
         jButton1.setText("Search Bill");
         jButton1.setBorder(null);
         jButton1.setContentAreaFilled(false);
@@ -68,7 +67,7 @@ public class CashMain extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, 30));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 102));
@@ -85,7 +84,6 @@ public class CashMain extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 102));
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\SAMEER\\Desktop\\products_product_shipment-32.png")); // NOI18N
         jButton3.setText("Product Information");
         jButton3.setBorder(null);
         jButton3.setContentAreaFilled(false);
@@ -94,15 +92,14 @@ public class CashMain extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, 30));
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 102));
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\SAMEER\\Desktop\\shield_dollar_online_sales_shop-32.png")); // NOI18N
         jButton4.setText("Sales");
         jButton4.setBorder(null);
         jButton4.setContentAreaFilled(false);
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, 30));
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 0, 102));
