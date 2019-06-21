@@ -384,18 +384,42 @@ public class CreateBill extends javax.swing.JInternalFrame {
          JOptionPane.showMessageDialog(null,e);
      }
  }
+ public double balance()
+ {
+     String sql1="SELECT * FROM `transactions`";
+     Connection con;
+   PreparedStatement pst;
+   ResultSet rs1;
+     try{
+         con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
+                            + "user=root&password=password");
+            pst=con.prepareStatement(sql1);  
+            rs1=pst.executeQuery();
+            while(rs1.next())
+            {   
+                double b = Double.parseDouble(rs1.getString(4));
+                return b;
+            }
+     }
+     catch(Exception e)
+     {
+         JOptionPane.showMessageDialog(null,e);
+     }
+     return 0;
+ }
     //insert data into billtable
     public void billupdate()
     {
-   String query="INSERT INTO `bill`(bno,`cname`,amt,`pdate`) VALUES("+jTextField1.getText()+",'"+jTextField2.getText()+"',"+jTextField7.getText()+",'"+jTextField8.getText()+"');";
-    
+        String query1="INSERT INTO `bill`(bno,`cname`,amt,`pdate`) VALUES("+jTextField1.getText()+",'"+jTextField2.getText()+"',"+jTextField7.getText()+",'"+jTextField8.getText()+"');";
+        String query2="INSERT INTO `transactions`(`tran_type`,amt,net_balance,`date`) VALUES('Sale','"+jTextField7.getText()+"',"+String.valueOf(Double.parseDouble(jTextField7.getText())+balance())+",'"+jTextField8.getText()+"');";
        Connection con;    
        Statement st;
        try{
             con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
                             + "user=root&password=password");
            st = con.createStatement();
-           st.executeUpdate(query);
+           st.executeUpdate(query1);
+           st.executeUpdate(query2);
        }
        catch(Exception e)
        {

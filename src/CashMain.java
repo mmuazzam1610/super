@@ -2,6 +2,7 @@
 import MyFrames.CreateBill;
 import MyFrames.ProInfo;
 import MyFrames.SearchBill;
+import MyFrames.Sales;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -99,6 +100,11 @@ public class CashMain extends javax.swing.JFrame {
         jButton4.setText("Sales");
         jButton4.setBorder(null);
         jButton4.setContentAreaFilled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, 30));
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -161,6 +167,13 @@ public class CashMain extends javax.swing.JFrame {
         this.desk.add(pro);
         pro.setVisible(true);    // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Sales sal=new Sales();
+        this.desk.add(sal);
+        sal.setVisible(true);  
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

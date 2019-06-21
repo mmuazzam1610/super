@@ -22,14 +22,15 @@ public class Product {
     private String pname;
     private int available;
     private int mrp;
+    private String img;
     
-    public Product(String id, String pname,int available, int mrp)
+    public Product(String id, String pname,int available, int mrp, String img)
     {
         this.id=id;
         this.pname=pname;
         this.available=available;
         this.mrp=mrp;
-        
+        this.img = img;
         
     }
             
@@ -48,6 +49,9 @@ public class Product {
     public int getmrp()
     {
         return mrp;
+    }
+    public String getimg(){
+        return img;
     }
   }
 
