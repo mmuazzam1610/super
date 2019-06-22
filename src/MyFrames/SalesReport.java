@@ -5,6 +5,16 @@
  */
 package MyFrames;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author SAMEER
@@ -63,10 +73,9 @@ public class SalesReport extends javax.swing.JInternalFrame {
         jLabel1.setText("Sales Report");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel2.setText("Date");
+        jLabel2.setText("Choose Year");
 
         jDateChooser1.setDate(new java.util.Date(1561177271000L));
-        jDateChooser1.setDateFormatString("MM, DD, YYYY");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("View");
@@ -79,33 +88,36 @@ public class SalesReport extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("Choose Type");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "By Year", "By Month", "By Week", "By Date" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "By Month", "By Week", "By Day" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addContainerGap(125, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(153, 153, 153))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(123, 123, 123))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(31, 31, 31))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(67, 67, 67))))
+                        .addGap(123, 123, 123))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,13 +139,13 @@ public class SalesReport extends javax.swing.JInternalFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "No of Sales", "Sale Amount", "Month"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -147,15 +159,15 @@ public class SalesReport extends javax.swing.JInternalFrame {
                 .addGap(11, 11, 11))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,9 +176,83 @@ public class SalesReport extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String type = jComboBox1.getSelectedItem().toString();
-        System.out.println(type);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(jDateChooser1.getDate());
+        int choice;
+        String query = "";
+        switch(type){
+            case "By Month":
+                choice = cal.get(Calendar.YEAR);
+                query = "select count(*),SUM(amt), MONTH(date) from transactions where tran_type like 'Sale' AND date like '"+choice+"%' GROUP BY MONTH(date);";
+                break;
+            case "By Week":
+                choice = cal.get(Calendar.MONTH);
+                query = "select count(*),SUM(amt), WEEK(date, 3) from transactions where tran_type like 'Sale' AND date like '%-"+choice+"-%' GROUP BY WEEK(date, 3);";
+                break;
+            case "By Day":
+                choice = cal.get(Calendar.WEEK_OF_YEAR);
+                query = "select count(*),SUM(amt), DAYOFWEEK(date) from transactions where tran_type like 'Sale' AND WEEK(date, 3) = "+choice+" GROUP BY DAYOFWEEK(date);";
+                break;
+        }
+        Connection connection= getConnection();
+        Statement st;
+        ResultSet rs;
+        DefaultTableModel model=(DefaultTableModel)jTable2.getModel();
+        Object[] row=new Object[3];
+        model.setRowCount(0);
+        try{
+            st=connection.createStatement();
+            rs=st.executeQuery(query);
+            while(rs.next())
+            {
+                row[0]=rs.getInt(1);
+                row[1]=rs.getDouble(2);
+                row[2]=rs.getInt(3);
+                model.addRow(row);
+            }
+        }
+        catch(Exception e)
+        {
+         e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        String type = jComboBox1.getSelectedItem().toString();
+        JTableHeader th = jTable2.getTableHeader();
+        switch(type){
+            case "By Month":
+                th.getColumnModel().getColumn(2).setHeaderValue("Month");
+                th.repaint();
+                jLabel2.setText("Choose Year");
+                break;
+            case "By Week":
+                th.getColumnModel().getColumn(2).setHeaderValue("Week");
+                th.repaint();
+                jLabel2.setText("Choose Month");
+                break;
+            case "By Day":
+                th.getColumnModel().getColumn(2).setHeaderValue("Day");
+                th.repaint();
+                jLabel2.setText("Choose Week");
+                break;
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    public Connection getConnection()
+    {
+        Connection con;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/grocery_schema?"
+                            + "user=root&password=password");            
+            return con;
+        } catch(Exception e)
+        {
+           return null;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

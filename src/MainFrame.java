@@ -1,8 +1,11 @@
 
 import MyFrames.AddEmployee;
 import MyFrames.CreateBill;
+import MyFrames.EmpReport;
+import MyFrames.ExpenseReport;
 import MyFrames.Payroll;
 import MyFrames.PerPro;
+import MyFrames.ProfitVExpenseReport;
 import MyFrames.SalesReport;
 import MyFrames.Sales;
 import MyFrames.SearchBill;
@@ -150,7 +153,7 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, -1, 40));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, -1, 40));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 102));
@@ -215,7 +218,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton11.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.disabledShadow"));
         jButton11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton11.setForeground(new java.awt.Color(0, 0, 102));
-        jButton11.setText("Sales Reports");
+        jButton11.setText("Employee Report");
         jButton11.setContentAreaFilled(false);
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,26 +230,26 @@ public class MainFrame extends javax.swing.JFrame {
         jButton12.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.disabledShadow"));
         jButton12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton12.setForeground(new java.awt.Color(0, 0, 102));
-        jButton12.setText("Sales Reports");
+        jButton12.setText("Expense Report");
         jButton12.setContentAreaFilled(false);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, 40));
+        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, -1, 40));
 
         jButton13.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.disabledShadow"));
         jButton13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton13.setForeground(new java.awt.Color(0, 0, 102));
-        jButton13.setText("Sales Reports");
+        jButton13.setText("Profit / Expense Report");
         jButton13.setContentAreaFilled(false);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, 40));
+        getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bk.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 130));
@@ -324,14 +327,21 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
+        EmpReport emp = new EmpReport();
+        this.desktop.add(emp);
+        emp.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
+        ExpenseReport er = new ExpenseReport();
+        er.setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
+        ProfitVExpenseReport pe = new ProfitVExpenseReport();
+        pe.setVisible(true);
     }//GEN-LAST:event_jButton13ActionPerformed
 
     /**

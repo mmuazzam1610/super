@@ -40,7 +40,9 @@ CREATE TABLE `grocery_schema`.`bill` (
     `cname` VARCHAR(40) NULL,
     `amt` INT NULL,
     `pdate` DATE NULL,
-    PRIMARY KEY (`bno`));
+    `empID` INT,
+    PRIMARY KEY (`bno`),
+    FOREIGN KEY `empIDfkey` (`empID`) REFERENCES employee(`id`));
 
     
 CREATE TABLE `grocery_schema`.`transactions` (
