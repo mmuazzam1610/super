@@ -57,3 +57,9 @@ CREATE TABLE `grocery_schema`.`thriftymembers` (
     `discount` DOUBLE NOT NULL,
     PRIMARY KEY (`cname`));
 
+CREATE TABLE `grocery_schema`.`worklog` (
+    `id` INT NOT NULL,
+    `hours` INT NOT NULL,
+    `date` DATE NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY `fkey_eid` (`id`) REFERENCES employee(`id`));

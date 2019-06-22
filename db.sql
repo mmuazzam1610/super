@@ -13,3 +13,5 @@ INSERT INTO `grocery_schema`.`suppliers` (`sname`, `address`, `phone`, `email`)
 INSERT INTO `grocery_schema`.`thriftymembers` (`cname`, `email`, `discount`) 
 	VALUES 
 		('Customer 1', 'customer1@email.com', '10');
+
+select * from suppliers join item_stock group by suppliers.sname;
